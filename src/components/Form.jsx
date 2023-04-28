@@ -7,7 +7,7 @@ function Form() {
     const [modelName, setModelName] = useState("")
     const [message, setMessage] = useState("")
     const [show, setShow] = useState(false);
-    const [inputs, setInputs] = useState([])
+    const [inputs, setInputs] = useState({})
     const [genders, setGenders] = useState([])
     const [cafeine, setCafeine] = useState([])
     const [time, setTime] = useState([])
@@ -63,7 +63,6 @@ function Form() {
         fetch(`${url}/${modelId}`, requestOptions)
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
                 setMessage(data.data.attributes.decision);
                 setShow(true);
             })
@@ -232,17 +231,11 @@ function Form() {
                     <button
                         type="submit"
                         className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700">
-                        PREDICT
+                        PRECICT {modelName.toUpperCase()}
                     </button>
                 </div>
 
-                {
-                    show && <Modal
-                        show={show}
-                        message={message}
-                    />
-
-                }
+                {show && <Modal show={show} message={message} model={modelName} />}
 
             </form>
 
